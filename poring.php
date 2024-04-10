@@ -16,27 +16,38 @@
     <h1>Hello, Poring!</h1>
 
     <?php
+        require_once 'mobtable.php';
         $pdo = require_once 'mysql.php';
-        $sql = 'SELECT * from mob_db_re WHERE id = 1002';
+        $sql = 'SELECT * from mob_db_re WHERE id = 1039';
         $statement = $pdo->query($sql);
-        $mob = $statement->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($mob as $row) {
-            echo 'Name: '. $row['name_english'] .', Level: '. $row['level'] . ', HP: '. $row['hp'] .', Base EXP: '. $row['base_exp'];
+        $mob = $statement->fetch();
+        if($mob)
+        {
+            mobtable($mob);
+            $sql = 'SELECT * from mob_skill_db_re WHERE mob_id = 1039';
+            $statement = $pdo->query($sql);
+            $skill = $statement->fetchAll(PDO::FETCH_ASSOC);
+            if($skill)
+            {
+                mobskill($skill);
+            }
+            else
+            {
+                echo "No skills.";
+            }
+            //$itemlist = itemlookup($pdo, $mob);
+            loottable($mob);
+            if($mob['mode_mvp'] == 1)
+            {
+                mvptable($mob);
+            }
         }
+        else
+        {
+            echo "Problem loading mob.";
+        }
+        
     ?> 
-
-    <div class="row mb-3 text-center">
-        <div class="col-md-4 grid-border text-center">.col-md-4</div>
-        <div class="col-md-8 grid-border">
-            <div class="pb-3 text-center">
-                .col-md-8
-            </div>
-            <div class="row">
-                <div class="col-md-6 grid-border text-center">.col-md-6</div>
-                <div class="col-md-6 grid-border text-center">.col-md-6</div>
-            </div>
-        </div>
-    </div>
 
     <?php include "includes/footer.php" ?>
     
