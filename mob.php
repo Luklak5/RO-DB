@@ -13,28 +13,24 @@
     <?php include "includes/header.php" ?>
     <?php include "includes/nav.php" ?>
 
-    <h1>Hello, Poring!</h1>
-
     <?php
         require_once 'mobtable.php';
+        $mobid = $_GET['id'];
+        if ($mobid == null) {
+            header("Location: selectmob.php");
+            die();
+        }
         $pdo = require_once 'mysql.php';
-        $sql = 'SELECT * from mob_db_re WHERE id = 1039';
+        $sql = 'SELECT * from mob_db_re WHERE id = ' . $mobid;
         $statement = $pdo->query($sql);
         $mob = $statement->fetch();
         if($mob)
         {
             mobtable($mob);
-            $sql = 'SELECT * from mob_skill_db_re WHERE mob_id = 1039';
+            $sql = 'SELECT * from mob_skill_db_re WHERE mob_id =' . $mobid . ' order by STATE asc';
             $statement = $pdo->query($sql);
             $skill = $statement->fetchAll(PDO::FETCH_ASSOC);
-            if($skill)
-            {
-                mobskill($skill);
-            }
-            else
-            {
-                echo "No skills.";
-            }
+            mobskill($skill);
             //$itemlist = itemlookup($pdo, $mob);
             loottable($mob);
             if($mob['mode_mvp'] == 1)

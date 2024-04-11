@@ -30,3 +30,11 @@ function lootslot($a, $b)
         $s = $a . ": " . rate($b);
     return $s;
 }
+
+
+function getId($a)
+{
+    $rem = stripos($a, "=");
+    $b = substr($a, $rem +1);
+    return $b;
+}

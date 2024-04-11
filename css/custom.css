@@ -1,3 +1,8 @@
 .grid-border {
     border: 1px solid rgba(255, 255, 255, .5);
 }
+
+.dropdown-menu {
+    max-height: 300px;
+    overflow-y: scroll;
+}

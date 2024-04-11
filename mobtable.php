@@ -21,16 +21,16 @@ function mobtable($row)
                 echo "<div class=\"col grid-border text-center\"> Attack Range: ". $row['attack_range'] ."</div>";
             echo "</div>"; 
             echo "<div class=\"row\">";
-                echo "<div class=\"col grid-border text-center\"> Base EXP: ". $row['base_exp'] ."</div>";
-                echo "<div class=\"col grid-border text-center\"> Job EXP: ". $row['job_exp'] ."</div>";
+                echo "<div class=\"col grid-border text-center\"> Base EXP: ". NHandler($row['base_exp']) ."</div>";
+                echo "<div class=\"col grid-border text-center\"> Job EXP: ". NHandler($row['job_exp']) ."</div>";
             echo "</div>";
             echo "<div class=\"row\">";
                 echo "<div class=\"col grid-border text-center\"> Attack: ". $row['attack'] ."</div>";
                 echo "<div class=\"col grid-border text-center\"> Magic Attack: ". $row['attack2'] ."</div>";
             echo "</div>";
             echo "<div class=\"row\">";
-                echo "<div class=\"col grid-border text-center\"> Defense: ". $row['defense'] . ' + '. NHandler($row['resistance']) ."</div>";
-                echo "<div class=\"col grid-border text-center\"> Magic Defense: ". $row['magic_defense'] . ' + '. NHandler($row['magic_resistance']) ."</div>";
+                echo "<div class=\"col grid-border text-center\"> Defense: ". NHandler($row['defense']) . ' + '. NHandler($row['resistance']) ."</div>";
+                echo "<div class=\"col grid-border text-center\"> Magic Defense: ". NHandler($row['magic_defense']) . ' + '. NHandler($row['magic_resistance']) ."</div>";
             echo "</div>";  
         echo "</div>";
     echo "</div>";
@@ -62,6 +62,11 @@ function mobskill($skill)
         echo "<div class=\"row grid-border\">";
             echo "<div class=\"col text-center\">Mob skills</div>";
         echo "</div>";
+        if($skill == null)
+        {
+            echo "<div class=\"col text-center\">No skills.</div>";
+        }
+        else
         foreach ($skill as $row) {
             echo "<div class=\"row\">";
                 echo "<div class=\"col text-center\">Skill: ". skillname($row['INFO']) .", Level: ". $row['SKILL_LV'] . ", State: ". $row['STATE'] . ", Rate: " . rate($row['RATE']) . "</div>";
