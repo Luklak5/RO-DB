@@ -27,12 +27,29 @@
         if($mob)
         {
             mobtable($mob);
-            $sql = 'SELECT * from mob_skill_db_re WHERE mob_id =' . $mobid . ' order by STATE asc';
+            $sql = 'SELECT * from mob_skill_db_re WHERE mob_id =' . $mobid . ' ORDER BY STATE ASC';
             $statement = $pdo->query($sql);
             $skill = $statement->fetchAll(PDO::FETCH_ASSOC);
             mobskill($skill);
-            //$itemlist = itemlookup($pdo, $mob);
-            loottable($mob);
+            $items = itemarray($mob);
+            if(!empty($items))
+            {
+                $drops = droparray($mob);
+                $sql = 'SELECT * from item_db_re where name_aegis in (';
+                foreach($items as $item)
+                {
+                    $sql = $sql . '\'' . $item . '\'';
+                    if($item != $items[array_key_last($items)])
+                    {
+                        $sql = $sql . ', ';
+                    }
+                }
+                $sql = $sql . ')';
+                $statement = $pdo->query($sql);
+                $itemlist = $statement->fetchAll(PDO::FETCH_ASSOC);
+                //loottable($itemlist, $drops);
+                loottable2($itemlist, $drops);
+            }
             if($mob['mode_mvp'] == 1)
             {
                 mvptable($mob);

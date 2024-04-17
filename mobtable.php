@@ -75,26 +75,34 @@ function mobskill($skill)
     echo "</div>";
 }
 
-function loottable($row)
+function loottable($itemlist, $drops)
 {
+    $x = 0;
     echo "<div class=\"container grid-border text-center mb-3\">";
         echo "<div class=\"row grid-border\">";
             echo "<div class=\"col text-center\">Loot</div>";
         echo "</div>";
-        echo "<div class=\"row\">";
-            echo "<div class= \"col text-center\">" . lootslot($row['drop1_item'], $row['drop1_rate']) . "</div>";
-            echo "<div class= \"col text-center\">" . lootslot($row['drop2_item'], $row['drop2_rate']) . "</div>";
-            echo "<div class= \"col text-center\">" . lootslot($row['drop3_item'], $row['drop3_rate']) . "</div>";
+        echo "<div class=\"row row-cols-3\">";
+            foreach ($itemlist as $row) {
+                echo "<div class= \"col text-center\">" . lootslot($row['name_english'], $drops[$x]) . "</div>";
+                $x++;
+            }
         echo "</div>";
-        echo "<div class=\"row\">";
-            echo "<div class= \"col text-center\">" . lootslot($row['drop4_item'], $row['drop4_rate']) . "</div>";
-            echo "<div class= \"col text-center\">" . lootslot($row['drop5_item'], $row['drop5_rate']) . "</div>";
-            echo "<div class= \"col text-center\">" . lootslot($row['drop6_item'], $row['drop6_rate']) . "</div>";
+    echo "</div>";
+}
+
+function loottable2($itemlist, $drops)
+{
+    //$x = 0;
+    echo "<div class=\"container grid-border text-center mb-3\">";
+        echo "<div class=\"row grid-border\">";
+            echo "<div class=\"col text-center\">Loot</div>";
         echo "</div>";
-        echo "<div class=\"row\">";
-            echo "<div class= \"col text-center\">" . lootslot($row['drop7_item'], $row['drop7_rate']) . "</div>";
-            echo "<div class= \"col text-center\">" . lootslot($row['drop8_item'], $row['drop8_rate']) . "</div>";
-            echo "<div class= \"col text-center\">" . lootslot($row['drop9_item'], $row['drop9_rate']) . "</div>";
+        echo "<div class=\"row row-cols-3\">";
+            foreach ($itemlist as $row) {
+                echo "<div class= \"col text-center\">" . lootslot($row['name_english'], $drops[$row['name_aegis']]) . "</div>";
+                //$x++;
+            }
         echo "</div>";
     echo "</div>";
 }
